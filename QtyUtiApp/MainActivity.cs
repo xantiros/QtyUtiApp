@@ -23,6 +23,13 @@ namespace QtyUtiApp
 
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
+
+            EditText textDate = FindViewById<EditText>(Resource.Id.editTextDate);
+            EditText textQty = FindViewById<EditText>(Resource.Id.editTextQty);
+            Button btn = FindViewById<Button>(Resource.Id.btn_Add);
+            btn.Click += btnOnClick;
+
+
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -48,6 +55,12 @@ namespace QtyUtiApp
             Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
                 .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
         }
-	}
+
+        private void btnOnClick(object sender, EventArgs eventArgs)
+        {
+            
+        }
+
+    }
 }
 

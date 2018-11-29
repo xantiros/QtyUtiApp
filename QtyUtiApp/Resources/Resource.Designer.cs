@@ -2436,7 +2436,7 @@ namespace QtyUtiApp
 			public const int bottom = 2131230781;
 			
 			// aapt resource value: 0x7f08008f
-			public const int button1 = 2131230863;
+			public const int btn_Add = 2131230863;
 			
 			// aapt resource value: 0x7f080063
 			public const int buttonPanel = 2131230819;
@@ -2508,10 +2508,10 @@ namespace QtyUtiApp
 			public const int disableHome = 2131230752;
 			
 			// aapt resource value: 0x7f08008d
-			public const int editText1 = 2131230861;
+			public const int editTextDate = 2131230861;
 			
 			// aapt resource value: 0x7f08008e
-			public const int editText2 = 2131230862;
+			public const int editTextQty = 2131230862;
 			
 			// aapt resource value: 0x7f08007e
 			public const int edit_query = 2131230846;

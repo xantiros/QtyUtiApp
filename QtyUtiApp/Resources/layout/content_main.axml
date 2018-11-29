@@ -11,19 +11,19 @@
 		android:inputType="date"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/editText1"
+		android:id="@+id/editTextDate"
 		android:layout_marginTop="20px"/>
 	<EditText
 		android:inputType="numberDecimal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/editText2"
-		android:layout_below="@id/editText1"/>
+		android:id="@+id/editTextQty"
+		android:layout_below="@id/editTextDate"/>
 	<Button
-		android:text="Button"
+		android:text="Add"
 		android:layout_width="match_parent"
-		android:id="@+id/button1"
+		android:id="@+id/btn_Add"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/editText2"
+		android:layout_below="@id/editTextQty"
 		android:layout_marginTop="20px"/>
 </RelativeLayout>
