@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Android.App;
 using Android.OS;
@@ -8,7 +9,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using QtyUtiApp.Core.Models;
-using QtyUtiApp.Databases;
+using SQLite;
 
 namespace QtyUtiApp
 {
@@ -64,7 +65,7 @@ namespace QtyUtiApp
             EditText textDate = FindViewById<EditText>(Resource.Id.editTextDate);
             EditText textQty = FindViewById<EditText>(Resource.Id.editTextQty);
 
-            Gas gas = new Gas(123, int.Parse(textQty.Text.ToString()), DateTime.Parse(textDate.Text.ToString()));
+            Gas gas = new Gas(int.Parse(textQty.Text.ToString()), DateTime.Parse(textDate.Text.ToString()));
 
             SQLiteDatabase db = new SQLiteDatabase();
             db.CopyDatabase2();
@@ -74,13 +75,19 @@ namespace QtyUtiApp
 
             using (var conn = new SQLiteConnection(dbPath))
             {
-                var cmd = new SQLiteCommand(conn);
-                //conn.Insert(gas);
-                cmd.CommandText = "select * from gas";
-                //cmd.CommandText = "insert into gas (date, quantity) values 01/10/10, 10";
-                var r = cmd.ExecuteQuery<Gas>();
+                //conn.CreateTable<Gas>();
 
-                Console.Write(r);
+                
+                var count = conn.Insert(gas);
+
+                List<Gas> gass = conn.Table<Gas>().ToList();
+
+
+                //var cmd = new SQLiteCommand(conn);
+                //cmd.CommandText = "select * from gas";
+                //var r = cmd.ExecuteQuery<Gas>();
+
+                //Console.Write(r);
             }
         }
 

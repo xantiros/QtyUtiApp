@@ -1,6 +1,6 @@
 ﻿using Android.App;
 using QtyUtiApp.Core.Models;
-using QtyUtiApp.Databases;
+using SQLite;
 using System.IO;
 
 namespace QtyUtiApp
@@ -104,5 +104,10 @@ namespace QtyUtiApp
                 }
             }
         }
+        public int AddNewGas(SQLiteConnection conn, Gas gas)
+        {
+            return conn.Insert(gas);
+        }
+
     }
 }

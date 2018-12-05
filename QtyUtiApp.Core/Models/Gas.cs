@@ -1,12 +1,15 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace QtyUtiApp.Core.Models
 {
+    [Table("gas")]
     public class Gas
     {
-        public int Id { get; private set; }
-        public double Quantity { get; private set; }
-        public DateTime Date { get; private set; }
+        [PrimaryKey, AutoIncrement, NotNull, Unique]
+        public int Id { get; set; }
+        public double Quantity { get; set; }
+        public DateTime Date { get; set; }
 
         public Gas(int id, double quantity, DateTime date)
         {
@@ -14,8 +17,12 @@ namespace QtyUtiApp.Core.Models
             Quantity = quantity;
             Date = date;
         }
-
-        protected Gas()
+        public Gas( double quantity, DateTime date)
+        {
+            Quantity = quantity;
+            Date = date;
+        }
+        public Gas()
         {
         }
     }
