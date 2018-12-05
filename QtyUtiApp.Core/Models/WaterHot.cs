@@ -4,7 +4,7 @@ namespace QtyUtiApp.Core.Models
 {
     public class WaterHot : Utility
     {
-        public WaterHot(int id, DateTime date, double quantity) : base(id, date, quantity)
+        public WaterHot(double quantity, DateTime date) : base(quantity, date)
         {
         }
 

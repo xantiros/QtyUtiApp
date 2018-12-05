@@ -2,10 +2,17 @@
 
 namespace QtyUtiApp.Core.Models
 {
-    public class Gas : Utility
+    public class Gas
     {
-        public Gas(int id, DateTime date, double quantity) : base(id, date, quantity)
+        public int Id { get; private set; }
+        public double Quantity { get; private set; }
+        public DateTime Date { get; private set; }
+
+        public Gas(int id, double quantity, DateTime date)
         {
+            Id = id;
+            Quantity = quantity;
+            Date = date;
         }
 
         protected Gas()

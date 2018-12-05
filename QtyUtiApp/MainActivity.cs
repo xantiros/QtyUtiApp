@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
@@ -6,6 +7,8 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using QtyUtiApp.Core.Models;
+using QtyUtiApp.Databases;
 
 namespace QtyUtiApp
 {
@@ -24,8 +27,8 @@ namespace QtyUtiApp
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
 
-            EditText textDate = FindViewById<EditText>(Resource.Id.editTextDate);
-            EditText textQty = FindViewById<EditText>(Resource.Id.editTextQty);
+            //EditText textDate = FindViewById<EditText>(Resource.Id.editTextDate);
+            //EditText textQty = FindViewById<EditText>(Resource.Id.editTextQty);
             Button btn = FindViewById<Button>(Resource.Id.btn_Add);
             btn.Click += btnOnClick;
 
@@ -58,7 +61,27 @@ namespace QtyUtiApp
 
         private void btnOnClick(object sender, EventArgs eventArgs)
         {
-            
+            EditText textDate = FindViewById<EditText>(Resource.Id.editTextDate);
+            EditText textQty = FindViewById<EditText>(Resource.Id.editTextQty);
+
+            Gas gas = new Gas(123, int.Parse(textQty.Text.ToString()), DateTime.Parse(textDate.Text.ToString()));
+
+            SQLiteDatabase db = new SQLiteDatabase();
+            db.CopyDatabase2();
+
+            string dbName = "QtyUtiDB.db";
+            string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);
+
+            using (var conn = new SQLiteConnection(dbPath))
+            {
+                var cmd = new SQLiteCommand(conn);
+                //conn.Insert(gas);
+                cmd.CommandText = "select * from gas";
+                //cmd.CommandText = "insert into gas (date, quantity) values 01/10/10, 10";
+                var r = cmd.ExecuteQuery<Gas>();
+
+                Console.Write(r);
+            }
         }
 
     }

@@ -5,13 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Databases\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Databases\QtyUtiDB.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Compile Remove="Databases\**" />
+    <EmbeddedResource Remove="Databases\**" />
+    <None Remove="Databases\**" />
   </ItemGroup>
 
 </Project>
