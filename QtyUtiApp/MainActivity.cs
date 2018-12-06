@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using Android.App;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
@@ -36,22 +35,31 @@ namespace QtyUtiApp
 
             ListView listView = FindViewById<ListView>(Resource.Id.listView);
 
-            //db.CopyDatabase2();
+            db.CopyDatabase2(); //kopiuje baze na telefon z apki
 
             string dbName = "QtyUtiDB.db";
             string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);
 
-            List<Gas> gass;
- 
-            using (var conn = new SQLiteConnection(dbPath))
+            List<Gas> gass = null;
+            List<string> abc = null;
+            try
             {
-                gass = conn.Table<Gas>().ToList();
+                using (var conn = new SQLiteConnection(dbPath))
+                {
+                    gass = conn.Table<Gas>().ToList();
+                    abc = gass.ConvertAll(x => x.ToString());
+                }
+                ArrayAdapter<string> arrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, abc);
+                listView.Adapter = arrayAdapter;
             }
-
+            catch (Exception)
+            {
+            }
+            
             //string abc[] = gass.ToString();
 
             //List<string> abc = null;
-            var abc = gass.ConvertAll(x => x.ToString());
+            
             //foreach (var item in gass)
             //{
             //    abc.Add(string.Join(", ", gass));
@@ -60,8 +68,7 @@ namespace QtyUtiApp
             //var items = gass[1].ToString();
 
             //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, gass[1].ToString());
-            ArrayAdapter<string> arrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, abc);
-            listView.Adapter = arrayAdapter;
+            
             //listView.ItemClick
 
             //var items = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
@@ -117,11 +124,9 @@ namespace QtyUtiApp
             {
                 //conn.CreateTable<Gas>();
 
-                
                 var count = conn.Insert(gas);
 
                 List<Gas> gass = conn.Table<Gas>().ToList();
-
 
                 //var cmd = new SQLiteCommand(conn);
                 //cmd.CommandText = "select * from gas";
