@@ -25,5 +25,9 @@ namespace QtyUtiApp.Core.Models
         public Gas()
         {
         }
+        public override string ToString()
+        {
+            return $"Id: {Id}, Qty: {Quantity}, {Date.ToShortDateString()}";
+        }
     }
 }
