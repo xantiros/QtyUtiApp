@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using QtyUtiApp.Core.Models;
 using SQLite;
+using System.Collections.Generic;
 using System.IO;
 
 namespace QtyUtiApp
@@ -82,7 +83,7 @@ namespace QtyUtiApp
                 dbAssetStream.Close();
             }
         }
-
+        //https://stackoverflow.com/questions/18715613/use-a-local-database-in-xamarin
         public void CopyDatabase2()
         {
             string dbName = "QtyUtiDB.db";
@@ -107,6 +108,10 @@ namespace QtyUtiApp
         public int AddNewGas(SQLiteConnection conn, Gas gas)
         {
             return conn.Insert(gas);
+        }
+        public List<Gas> GetGass(SQLiteConnection conn)
+        {
+            return conn.Table<Gas>().ToList();
         }
 
     }

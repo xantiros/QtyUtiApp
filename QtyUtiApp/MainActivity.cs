@@ -16,6 +16,7 @@ namespace QtyUtiApp
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
+        SQLiteDatabase db = new SQLiteDatabase();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,7 +34,46 @@ namespace QtyUtiApp
             Button btn = FindViewById<Button>(Resource.Id.btn_Add);
             btn.Click += btnOnClick;
 
+            ListView listView = FindViewById<ListView>(Resource.Id.listView);
 
+            //db.CopyDatabase2();
+
+            string dbName = "QtyUtiDB.db";
+            string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);
+
+            List<Gas> gass;
+ 
+            using (var conn = new SQLiteConnection(dbPath))
+            {
+                gass = conn.Table<Gas>().ToList();
+            }
+
+            //string abc[] = gass.ToString();
+
+            //List<string> abc = null;
+            var abc = gass.ConvertAll(x => x.ToString());
+            //foreach (var item in gass)
+            //{
+            //    abc.Add(string.Join(", ", gass));
+            //}
+
+            //var items = gass[1].ToString();
+
+            //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, gass[1].ToString());
+            ArrayAdapter<string> arrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, abc);
+            listView.Adapter = arrayAdapter;
+            //listView.ItemClick
+
+            //var items = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
+            //ArrayAdapter<string> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, items);
+            //listView.Adapter = adapter;
+            //listView.ItemClick += listView_ItemClick;
+
+        }
+
+        private void listView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Toast.MakeText(this, e.Position.ToString(), ToastLength.Long).Show();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -67,8 +107,8 @@ namespace QtyUtiApp
 
             Gas gas = new Gas(int.Parse(textQty.Text.ToString()), DateTime.Parse(textDate.Text.ToString()));
 
-            SQLiteDatabase db = new SQLiteDatabase();
-            db.CopyDatabase2();
+            //SQLiteDatabase db = new SQLiteDatabase();
+            //db.CopyDatabase2();
 
             string dbName = "QtyUtiDB.db";
             string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);

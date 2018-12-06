@@ -26,4 +26,10 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@id/editTextQty"
 		android:layout_marginTop="20px"/>
+	<ListView
+		android:id="@+id/listView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/btn_Add"
+		android:layout_marginTop="20px"/>
 </RelativeLayout>
