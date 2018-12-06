@@ -28,23 +28,22 @@ namespace QtyUtiApp
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
 
-            //EditText textDate = FindViewById<EditText>(Resource.Id.editTextDate);
-            //EditText textQty = FindViewById<EditText>(Resource.Id.editTextQty);
             Button btn = FindViewById<Button>(Resource.Id.btn_Add);
             btn.Click += btnOnClick;
 
             ListView listView = FindViewById<ListView>(Resource.Id.listView);
 
-            db.CopyDatabase2(); //kopiuje baze na telefon z apki
+            db.CopyDatabase(); //kopiuje baze na telefon z apki
 
-            string dbName = "QtyUtiDB.db";
-            string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);
+            //string dbName = "QtyUtiDB.db";
+            //string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);
 
             List<Gas> gass = null;
             List<string> abc = null;
             try
             {
-                using (var conn = new SQLiteConnection(dbPath))
+                //using (var conn = new SQLiteConnection(dbPath))
+                using(var conn = db.SQLiteConnection)
                 {
                     gass = conn.Table<Gas>().ToList();
                     abc = gass.ConvertAll(x => x.ToString());
@@ -76,11 +75,6 @@ namespace QtyUtiApp
             //listView.Adapter = adapter;
             //listView.ItemClick += listView_ItemClick;
 
-        }
-
-        private void listView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            Toast.MakeText(this, e.Position.ToString(), ToastLength.Long).Show();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -124,15 +118,12 @@ namespace QtyUtiApp
             {
                 //conn.CreateTable<Gas>();
 
-                var count = conn.Insert(gas);
+                //var count = conn.Insert(gas);
+                var count = db.AddNewGas(gas);
 
-                List<Gas> gass = conn.Table<Gas>().ToList();
+                var gass = db.GetAllGass();
+                //List<Gas> gass = conn.Table<Gas>().ToList();
 
-                //var cmd = new SQLiteCommand(conn);
-                //cmd.CommandText = "select * from gas";
-                //var r = cmd.ExecuteQuery<Gas>();
-
-                //Console.Write(r);
             }
         }
 
