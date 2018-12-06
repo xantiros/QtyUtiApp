@@ -43,11 +43,15 @@ namespace QtyUtiApp
             try
             {
                 //using (var conn = new SQLiteConnection(dbPath))
-                using(var conn = db.SQLiteConnection)
-                {
-                    gass = conn.Table<Gas>().ToList();
-                    abc = gass.ConvertAll(x => x.ToString());
-                }
+
+                gass = db.GetAllGass();
+                abc = gass.ConvertAll(x => x.ToString());
+
+                //using(var conn = db.SQLiteConnection)
+                //{
+                //    gass = conn.Table<Gas>().ToList();
+                //    abc = gass.ConvertAll(x => x.ToString());
+                //}
                 ArrayAdapter<string> arrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, abc);
                 listView.Adapter = arrayAdapter;
             }

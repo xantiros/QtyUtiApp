@@ -44,11 +44,19 @@ namespace QtyUtiApp
         }
         public int AddNewGas(Gas gas)
         {
-            return SQLiteConnection.Insert(gas);
+            using (var conn = SQLiteConnection)
+            {
+                return SQLiteConnection.Insert(gas);
+            }
+            //return SQLiteConnection.Insert(gas);
         }
         public List<Gas> GetAllGass()
         {
-            return SQLiteConnection.Table<Gas>().ToList();
+            using (var conn = SQLiteConnection)
+            {
+                return SQLiteConnection.Table<Gas>().ToList();
+            }
+            //return SQLiteConnection.Table<Gas>().ToList();
         }
 
 
