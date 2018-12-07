@@ -86,27 +86,11 @@ namespace QtyUtiApp
 
             Gas gas = new Gas(int.Parse(textQty.Text.ToString()), DateTime.Parse(textDate.Text.ToString()));
 
-            List<string> allgass = null;
-
             string dbName = "QtyUtiDB.db";
             string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);
 
-
-
-            //var count = db.AddNewGas2(db.SQLiteConnection, gas);
-
-
-            var count = db.AddNewGas2(dbPath, gas);
-
-            //using (var conn = db.SQLiteConnection) //to nie dziala
-            using (var conn = new SQLiteConnection(dbPath)) //przy insercie tylko to działa
-            {
-                //var count = db.AddNewGas2(gas);
-                //var count = conn.Insert(gas);
-                //var count = db.AddNewGas(conn, gas);
-                allgass = db.GetAllGass(conn).ConvertAll(x => x.ToString());
-            }
-
+            var count = db.AddNewGas2(db, gas);
+            List<string> allgass = db.GetAllGass2(db).ConvertAll(x => x.ToString());
 
             ListView listView = FindViewById<ListView>(Resource.Id.listView);
             ArrayAdapter<string> arrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, allgass);

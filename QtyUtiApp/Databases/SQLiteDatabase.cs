@@ -45,17 +45,21 @@ namespace QtyUtiApp
         {
             return conn.Insert(gas);
         }
-        public int AddNewGas2(string dbPath, Gas gas)
+        public int AddNewGas2(SQLiteDatabase conn, Gas gas)
         {
-            using (var conn = new SQLiteConnection(dbPath)) //przy insercie tylko to działa
+            using (var con = new SQLiteConnection(conn.DBPath)) //przy insercie tylko to działa
             {
-                return conn.Insert(gas);
+                return con.Insert(gas);
             }
-                
         }
         public List<Gas> GetAllGass(SQLiteConnection conn)
         {
             return conn.Table<Gas>().ToList();
+        }
+        public List<Gas> GetAllGass2(SQLiteDatabase conn)
+        {
+            using (var con = new SQLiteConnection(conn.DBPath))
+                return con.Table<Gas>().ToList();
         }
     }
 }
