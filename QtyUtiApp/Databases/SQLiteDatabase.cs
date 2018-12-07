@@ -1,5 +1,6 @@
 ﻿using QtyUtiApp.Core.Models;
 using SQLite;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -44,13 +45,13 @@ namespace QtyUtiApp
         {
             return conn.Insert(gas);
         }
-        public int AddNewGas2(SQLiteConnection conn, Gas gas)
+        public int AddNewGas2(string dbPath, Gas gas)
         {
-            using (var con = conn)
+            using (var conn = new SQLiteConnection(dbPath)) //przy insercie tylko to działa
             {
                 return conn.Insert(gas);
             }
-
+                
         }
         public List<Gas> GetAllGass(SQLiteConnection conn)
         {

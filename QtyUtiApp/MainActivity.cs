@@ -93,12 +93,16 @@ namespace QtyUtiApp
 
 
 
+            //var count = db.AddNewGas2(db.SQLiteConnection, gas);
 
-            //using (var conn = db.SQLiteConnection)
-            using (var conn = new SQLiteConnection(dbPath))
+
+            var count = db.AddNewGas2(dbPath, gas);
+
+            //using (var conn = db.SQLiteConnection) //to nie dziala
+            using (var conn = new SQLiteConnection(dbPath)) //przy insercie tylko to działa
             {
-                //var count = conn.AddNewGas2(conn, gas);
-                var count = conn.Insert(gas);
+                //var count = db.AddNewGas2(gas);
+                //var count = conn.Insert(gas);
                 //var count = db.AddNewGas(conn, gas);
                 allgass = db.GetAllGass(conn).ConvertAll(x => x.ToString());
             }
