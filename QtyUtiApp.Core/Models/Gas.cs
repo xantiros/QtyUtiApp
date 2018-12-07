@@ -3,7 +3,7 @@ using System;
 
 namespace QtyUtiApp.Core.Models
 {
-    [Table("gas")]
+    [Table("Gas")]
     public class Gas
     {
         [PrimaryKey, AutoIncrement, NotNull, Unique]

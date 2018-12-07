@@ -1,4 +1,5 @@
-﻿using QtyUtiApp.Core.Models;
+﻿using Android.App;
+using QtyUtiApp.Core.Models;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,19 @@ namespace QtyUtiApp
             DBPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), DBName);
             SQLiteConnection = new SQLiteConnection(DBPath);
         }
-
+        
         //https://stackoverflow.com/questions/18715613/use-a-local-database-in-xamarin
         public void CopyDatabase()
         {
             string dbName = "QtyUtiDB.db";
             string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);
             // Check if your DB has already been extracted.
-            if (!File.Exists(dbPath))
+
+            //Perhaps you can remove if (!File.Exists(path)) and run it once to force a fresh copy to be written - 
+            //just to ensure that previous attempts haven't saved an empty database at the target path
+            if (!File.Exists(dbPath)) //zmianić podczas pierwszej instalacji
             {
-                using (BinaryReader br = new BinaryReader(Android.App.Application.Context.Assets.Open(dbName)))
+                using (BinaryReader br = new BinaryReader(Application.Context.Assets.Open(dbName)))
                 {
                     using (BinaryWriter bw = new BinaryWriter(new FileStream(dbPath, FileMode.Create)))
                     {
@@ -40,6 +44,18 @@ namespace QtyUtiApp
                     }
                 }
             }
+        }
+        public int AddUtility(SQLiteDatabase conn, Utility uti)
+        {
+            using (var con = new SQLiteConnection(conn.DBPath)) //przy insercie tylko to działa
+            {
+                return con.Insert(uti);
+            }
+        }
+        public List<Utility> GetAllUtilities(SQLiteDatabase conn)
+        {
+            using (var con = new SQLiteConnection(conn.DBPath))
+                return con.Table<Utility>().ToList();
         }
         public int AddNewGas(SQLiteConnection conn, Gas gas)
         {

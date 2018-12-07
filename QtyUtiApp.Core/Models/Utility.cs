@@ -1,27 +1,32 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace QtyUtiApp.Core.Models
 {
+    [Table("utility")]
     public class Utility
     {
-        public int Id { get; internal set; }
-        public double Quantity { get; internal set; }
-        public DateTime Date { get; internal set; }
+        [PrimaryKey, AutoIncrement, NotNull, Unique]
+        public int Id { get; set; }
+        public double GasQuantity { get; set; }
+        public double ColdWaterQuantity { get; set; }
+        public double HotWaterQuantity { get; set; }
+        public DateTime Date { get; set; }
 
-        protected Utility()
+        public Utility()
         {
         }
 
-        public Utility(double quantity, DateTime date)
+        public Utility(double gasQuantity, double cWaterQuantity, double hWaterQuantity, DateTime date)
         {
-            Quantity = quantity;
+            GasQuantity = gasQuantity;
+            ColdWaterQuantity = cWaterQuantity;
+            HotWaterQuantity = hWaterQuantity;
             Date = date;
         }
-        public Utility(int id, double quantity, DateTime date)
+        public override string ToString()
         {
-            Id = id;
-            Quantity = quantity;
-            Date = date;
+            return $"Id: {Id}, Gas: {GasQuantity}, CWater: {ColdWaterQuantity}, HWater: {HotWaterQuantity}, {Date.ToShortDateString()}";
         }
     }
 }
