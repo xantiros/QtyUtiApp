@@ -17,7 +17,7 @@ namespace QtyUtiApp.Core.Models
             Quantity = quantity;
             Date = date;
         }
-        public Gas( double quantity, DateTime date)
+        public Gas(double quantity, DateTime date)
         {
             Quantity = quantity;
             Date = date;

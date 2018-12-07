@@ -1,5 +1,4 @@
-﻿using Android.App;
-using QtyUtiApp.Core.Models;
+﻿using QtyUtiApp.Core.Models;
 using SQLite;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +8,6 @@ namespace QtyUtiApp
     public class SQLiteDatabase
     {
         public SQLiteConnection SQLiteConnection { get; private set; }
-
         public string DBName { get; private set; }
         public string DBPath { get; private set; }
 
@@ -42,98 +40,21 @@ namespace QtyUtiApp
                 }
             }
         }
-        public int AddNewGas(Gas gas)
+        public int AddNewGas(SQLiteConnection conn, Gas gas)
         {
-            using (var conn = SQLiteConnection)
+            return conn.Insert(gas);
+        }
+        public int AddNewGas2(SQLiteConnection conn, Gas gas)
+        {
+            using (var con = conn)
             {
-                return SQLiteConnection.Insert(gas);
+                return conn.Insert(gas);
             }
-            //return SQLiteConnection.Insert(gas);
+
         }
-        public List<Gas> GetAllGass()
+        public List<Gas> GetAllGass(SQLiteConnection conn)
         {
-            using (var conn = SQLiteConnection)
-            {
-                return SQLiteConnection.Table<Gas>().ToList();
-            }
-            //return SQLiteConnection.Table<Gas>().ToList();
+            return conn.Table<Gas>().ToList();
         }
-
-
-
-
-
-        public void SaveToDatabase2(Utility uti)
-        {
-            //using (SQLiteConnection = new SQLiteConnection(SQLitePlatform, "Data Source=./Database/QuizDB.db"))
-            //{
-            //    SQLiteConnection.Execute($"insert into {uti.GetType().Name} (date, quantity) values (@date, @quantity)", uti);
-            //}
-        }
-        public void SaveToDatabase(SQLiteConnection db, Utility uti)
-        {
-            var s = db.Insert(uti);
-
-            //var s = db.Insert(new Stock()
-            //{
-            //    Symbol = symbol
-            //});
-            //Console.WriteLine("{0} == {1}", s.Symbol, s.Id);
-        }
-        //public SQLiteAsyncConnection GetConnection()
-        //{
-        //    var sqliteFilename = "QtyUtiDB.db";
-        //    string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // Documents folder
-        //    var path = Path.Combine(documentsPath, sqliteFilename);
-        //    var platform = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
-        //    var param = new SQLiteConnectionString(path, false);
-        //    var connection = new SQLiteAsyncConnection(() => new SQLiteConnectionWithLock(platform, param));
-        //    return connection;
-        //}
-
-        public SQLiteConnection SQLiteConnection_test()
-        {
-            var sqliteFilename = "QtyUtiDB.db";
-            string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-
-            var path = Path.Combine(documentsPath, sqliteFilename);
-
-            if(!File.Exists(path))
-            {
-
-            }
-            //var plat = new SQLite.Net.Platform.XamarinAndroid.SqlitePlatformAndroid();
-            //var conn = new 
-            //var conn = new SQLiteConnection("Data Source=./Databases/QtyUtiDB.db");
-            var conn = new SQLiteConnection(path);
-            //conn.Insert(gas);
-            return conn;
-            ;
-        }
-
-        public void CopyDatabase_test(string dataBaseName)
-        {
-            var dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), dataBaseName);
-
-            if (!File.Exists(dbPath))
-            {
-                var dbAssetStream = Application.Context.Assets.Open(dataBaseName);
-                var dbFileStream = new FileStream(dbPath, FileMode.OpenOrCreate);
-                var buffer = new byte[1024];
-
-                int b = buffer.Length;
-                int length;
-
-                while ((length = dbAssetStream.Read(buffer, 0, b)) > 0)
-                {
-                    dbFileStream.Write(buffer, 0, length);
-                }
-
-                dbFileStream.Flush();
-                dbFileStream.Close();
-                dbAssetStream.Close();
-            }
-        }
-  
     }
 }

@@ -35,49 +35,23 @@ namespace QtyUtiApp
 
             db.CopyDatabase(); //kopiuje baze na telefon z apki
 
-            //string dbName = "QtyUtiDB.db";
-            //string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);
-
             List<Gas> gass = null;
             List<string> abc = null;
             try
             {
-                //using (var conn = new SQLiteConnection(dbPath))
+                using (var conn = db.SQLiteConnection)
+                {
+                    gass = conn.Table<Gas>().ToList();
+                    abc = gass.ConvertAll(x => x.ToString());
+                }
 
-                gass = db.GetAllGass();
-                abc = gass.ConvertAll(x => x.ToString());
-
-                //using(var conn = db.SQLiteConnection)
-                //{
-                //    gass = conn.Table<Gas>().ToList();
-                //    abc = gass.ConvertAll(x => x.ToString());
-                //}
                 ArrayAdapter<string> arrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, abc);
                 listView.Adapter = arrayAdapter;
             }
             catch (Exception)
             {
             }
-            
-            //string abc[] = gass.ToString();
 
-            //List<string> abc = null;
-            
-            //foreach (var item in gass)
-            //{
-            //    abc.Add(string.Join(", ", gass));
-            //}
-
-            //var items = gass[1].ToString();
-
-            //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, gass[1].ToString());
-            
-            //listView.ItemClick
-
-            //var items = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
-            //ArrayAdapter<string> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, items);
-            //listView.Adapter = adapter;
-            //listView.ItemClick += listView_ItemClick;
 
         }
 
@@ -112,23 +86,28 @@ namespace QtyUtiApp
 
             Gas gas = new Gas(int.Parse(textQty.Text.ToString()), DateTime.Parse(textDate.Text.ToString()));
 
-            //SQLiteDatabase db = new SQLiteDatabase();
-            //db.CopyDatabase2();
+            List<string> allgass = null;
 
             string dbName = "QtyUtiDB.db";
             string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);
 
+
+
+
+            //using (var conn = db.SQLiteConnection)
             using (var conn = new SQLiteConnection(dbPath))
             {
-                //conn.CreateTable<Gas>();
-
-                //var count = conn.Insert(gas);
-                var count = db.AddNewGas(gas);
-
-                var gass = db.GetAllGass();
-                //List<Gas> gass = conn.Table<Gas>().ToList();
-
+                //var count = conn.AddNewGas2(conn, gas);
+                var count = conn.Insert(gas);
+                //var count = db.AddNewGas(conn, gas);
+                allgass = db.GetAllGass(conn).ConvertAll(x => x.ToString());
             }
+
+
+            ListView listView = FindViewById<ListView>(Resource.Id.listView);
+            ArrayAdapter<string> arrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, allgass);
+            listView.Adapter = arrayAdapter;
+
         }
 
     }
