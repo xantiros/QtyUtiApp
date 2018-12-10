@@ -17,19 +17,38 @@
 		android:inputType="numberDecimal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/editTextQty"
+		android:id="@+id/editTextGasQty"
 		android:layout_below="@id/editTextDate"/>
+	<EditText
+		android:inputType="numberDecimal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/editTextHWQty"
+		android:layout_below="@id/editTextGasQty"/>
+	<EditText
+		android:inputType="numberDecimal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/editTextCWQty"
+		android:layout_below="@id/editTextHWQty"/>
 	<Button
 		android:text="Add"
 		android:layout_width="match_parent"
 		android:id="@+id/btn_Add"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/editTextQty"
+		android:layout_below="@id/editTextCWQty"
+		android:layout_marginTop="20px"/>
+	<Button
+		android:text="New Page"
+		android:layout_width="match_parent"
+		android:id="@+id/btn_NewPage"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/btn_Add"
 		android:layout_marginTop="20px"/>
 	<ListView
 		android:id="@+id/listView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/btn_Add"
+		android:layout_below="@id/btn_NewPage"
 		android:layout_marginTop="20px"/>
 </RelativeLayout>

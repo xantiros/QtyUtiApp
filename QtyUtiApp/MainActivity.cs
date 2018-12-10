@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
@@ -28,6 +29,7 @@ namespace QtyUtiApp
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
 
+
             Button btn = FindViewById<Button>(Resource.Id.btn_Add);
             btn.Click += btnOnClick;
 
@@ -52,7 +54,17 @@ namespace QtyUtiApp
             {
             }
 
+            Button btnNewPage = FindViewById<Button>(Resource.Id.btn_NewPage);
+            btnNewPage.Click += btnNewPageClick;
 
+
+        }
+
+        private void btnNewPageClick(object sender, EventArgs e)
+        {
+            SetContentView(Resource.Layout.UtiView);
+            Intent intent = new Intent(this, typeof(UtiViewActivity));
+            StartActivity(intent);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -82,7 +94,7 @@ namespace QtyUtiApp
         private void btnOnClick(object sender, EventArgs eventArgs)
         {
             EditText textDate = FindViewById<EditText>(Resource.Id.editTextDate);
-            EditText textQty = FindViewById<EditText>(Resource.Id.editTextQty);
+            EditText textQty = FindViewById<EditText>(Resource.Id.editTextGasQty);
 
             Gas gas = new Gas(int.Parse(textQty.Text.ToString()), DateTime.Parse(textDate.Text.ToString()));
 
