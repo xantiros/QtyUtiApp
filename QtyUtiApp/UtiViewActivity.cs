@@ -41,11 +41,13 @@ namespace QtyUtiApp
         }
         public override void OnBackPressed()
         {
-            base.OnBackPressed();
+            base.OnBackPressed(); //idzie do OnRestart
 
             //oncreate
-            var intent = new Intent(this, typeof(MainActivity)).SetFlags(ActivityFlags.ReorderToFront);
-            StartActivity(intent);
+            //var intent = new Intent(this, typeof(MainActivity)).SetFlags(ActivityFlags.ReorderToFront);
+            //StartActivity(intent);
+
+            //var intent = new Intent();
             //intent.SetClass(BaseContext, typeof(MainActivity));
             //intent.SetFlags(ActivityFlags.ReorderToFront);
             //StartActivity(intent);
@@ -59,6 +61,7 @@ namespace QtyUtiApp
             //SetContentView(Resource.Layout.content_main);
             //Intent intent = new Intent(this, typeof(MainActivity));
             //StartActivity(intent);
+
         }
     }
 }

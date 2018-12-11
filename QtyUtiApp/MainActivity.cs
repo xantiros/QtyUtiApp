@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using QtyUtiApp.Core.Models;
 using SQLite;
+using AlertDialog = Android.App.AlertDialog;
 
 namespace QtyUtiApp
 {
@@ -28,7 +29,6 @@ namespace QtyUtiApp
 
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
-
 
             Button btn = FindViewById<Button>(Resource.Id.btn_Add);
             btn.Click += btnOnClick;
@@ -50,8 +50,17 @@ namespace QtyUtiApp
                 ArrayAdapter<string> arrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, abc);
                 listView.Adapter = arrayAdapter;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var dialog = new AlertDialog.Builder(this);
+                AlertDialog alert = dialog.Create();
+                alert.SetTitle("Exception");
+                alert.SetMessage(ex.ToString());
+                alert.SetButton("OK", (c, ev) =>
+                {
+                    // Ok button click task  
+                });
+                alert.Show();
             }
 
             Button btnNewPage = FindViewById<Button>(Resource.Id.btn_NewPage);
@@ -88,6 +97,8 @@ namespace QtyUtiApp
             base.OnRestart();
             SetContentView(Resource.Layout.activity_main);
 
+            SQLiteDatabase db2 = new SQLiteDatabase();
+
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
@@ -99,13 +110,13 @@ namespace QtyUtiApp
 
             ListView listView = FindViewById<ListView>(Resource.Id.listView);
 
-            db.CopyDatabase(); //kopiuje baze na telefon z apki
+            db2.CopyDatabase(); //kopiuje baze na telefon z apki
 
             List<Gas> gass = null;
             List<string> abc = null;
             try
             {
-                using (var conn = db.SQLiteConnection)
+                using (var conn = db2.SQLiteConnection)
                 {
                     gass = conn.Table<Gas>().ToList();
                     abc = gass.ConvertAll(x => x.ToString());
@@ -114,8 +125,17 @@ namespace QtyUtiApp
                 ArrayAdapter<string> arrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, abc);
                 listView.Adapter = arrayAdapter;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var dialog = new AlertDialog.Builder(this);
+                AlertDialog alert = dialog.Create();
+                alert.SetTitle("Exception");
+                alert.SetMessage(ex.ToString());
+                alert.SetButton("OK", (c, ev) =>
+                {
+                    // Ok button click task  
+                });
+                alert.Show();
             }
 
             Button btnNewPage = FindViewById<Button>(Resource.Id.btn_NewPage);
@@ -124,7 +144,7 @@ namespace QtyUtiApp
 
         private void btnNewPageClick(object sender, EventArgs e)
         {
-            SetContentView(Resource.Layout.UtiView);
+            //SetContentView(Resource.Layout.UtiView);
             Intent intent = new Intent(this, typeof(UtiViewActivity));
             StartActivity(intent);
         }
