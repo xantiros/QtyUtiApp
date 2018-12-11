@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using QtyUtiApp.Core.Models;
 
@@ -22,6 +17,8 @@ namespace QtyUtiApp
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.UtiView);
+
+            
 
             ListView listView = FindViewById<ListView>(Resource.Id.listView2);
 
@@ -41,7 +38,27 @@ namespace QtyUtiApp
             catch (Exception)
             {
             }
+        }
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
 
+            //oncreate
+            var intent = new Intent(this, typeof(MainActivity)).SetFlags(ActivityFlags.ReorderToFront);
+            StartActivity(intent);
+            //intent.SetClass(BaseContext, typeof(MainActivity));
+            //intent.SetFlags(ActivityFlags.ReorderToFront);
+            //StartActivity(intent);
+
+
+            //działa oncreate
+            //var intent = new Intent(this, typeof(MainActivity));
+            //intent.AddFlags(ActivityFlags.ClearTop);
+            //StartActivity(intent);
+
+            //SetContentView(Resource.Layout.content_main);
+            //Intent intent = new Intent(this, typeof(MainActivity));
+            //StartActivity(intent);
         }
     }
 }

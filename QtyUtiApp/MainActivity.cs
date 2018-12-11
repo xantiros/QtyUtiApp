@@ -57,7 +57,69 @@ namespace QtyUtiApp
             Button btnNewPage = FindViewById<Button>(Resource.Id.btn_NewPage);
             btnNewPage.Click += btnNewPageClick;
 
+        }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
+        protected override void OnStop()
+        {
+            base.OnStop();
+        }
+        protected override void OnSaveInstanceState(Bundle outState)
+        {
+            base.OnSaveInstanceState(outState);
+        }
+        protected override void OnStart()
+        {
+            base.OnStart();
+        }
+        protected override void OnResume()
+        {
+            base.OnResume();
+        }
+        protected override void OnPause()
+        {
+            base.OnPause();
+        }
+        protected override void OnRestart()
+        {
+            base.OnRestart();
+            SetContentView(Resource.Layout.activity_main);
+
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+
+            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
+            fab.Click += FabOnClick;
+
+            Button btn = FindViewById<Button>(Resource.Id.btn_Add);
+            btn.Click += btnOnClick;
+
+            ListView listView = FindViewById<ListView>(Resource.Id.listView);
+
+            db.CopyDatabase(); //kopiuje baze na telefon z apki
+
+            List<Gas> gass = null;
+            List<string> abc = null;
+            try
+            {
+                using (var conn = db.SQLiteConnection)
+                {
+                    gass = conn.Table<Gas>().ToList();
+                    abc = gass.ConvertAll(x => x.ToString());
+                }
+
+                ArrayAdapter<string> arrayAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, abc);
+                listView.Adapter = arrayAdapter;
+            }
+            catch (Exception)
+            {
+            }
+
+            Button btnNewPage = FindViewById<Button>(Resource.Id.btn_NewPage);
+            btnNewPage.Click += btnNewPageClick;
         }
 
         private void btnNewPageClick(object sender, EventArgs e)
