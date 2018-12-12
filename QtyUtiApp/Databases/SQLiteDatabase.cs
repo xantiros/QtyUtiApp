@@ -23,17 +23,17 @@ namespace QtyUtiApp
         //https://stackoverflow.com/questions/18715613/use-a-local-database-in-xamarin
         public void CopyDatabase()
         {
-            string dbName = "QtyUtiDB.db";
-            string dbPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), dbName);
+            //string DBName = "QtyUtiDB.db";
+            //string DBPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.ToString(), DBName);
             // Check if your DB has already been extracted.
 
             //Perhaps you can remove if (!File.Exists(path)) and run it once to force a fresh copy to be written - 
             //just to ensure that previous attempts haven't saved an empty database at the target path
-            if (!File.Exists(dbPath)) //zmianić podczas pierwszej instalacji
+            if (!File.Exists(DBPath)) //zmianić podczas pierwszej instalacji
             {
-                using (BinaryReader br = new BinaryReader(Application.Context.Assets.Open(dbName)))
+                using (BinaryReader br = new BinaryReader(Application.Context.Assets.Open(DBName)))
                 {
-                    using (BinaryWriter bw = new BinaryWriter(new FileStream(dbPath, FileMode.Create)))
+                    using (BinaryWriter bw = new BinaryWriter(new FileStream(DBPath, FileMode.Create)))
                     {
                         byte[] buffer = new byte[2048];
                         int len = 0;
