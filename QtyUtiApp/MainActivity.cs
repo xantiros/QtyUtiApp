@@ -9,7 +9,6 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using QtyUtiApp.Core.Models;
-using SQLite;
 using AlertDialog = Android.App.AlertDialog;
 
 namespace QtyUtiApp

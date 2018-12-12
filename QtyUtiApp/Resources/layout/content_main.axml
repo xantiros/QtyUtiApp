@@ -12,25 +12,29 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/editTextDate"
-		android:layout_marginTop="20px"/>
+		android:layout_marginTop="20px"
+		android:text="Date" />
 	<EditText
 		android:inputType="numberDecimal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/editTextGasQty"
-		android:layout_below="@id/editTextDate"/>
+		android:layout_below="@id/editTextDate"
+		android:text="Gas Quantity" />
 	<EditText
 		android:inputType="numberDecimal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/editTextHWQty"
-		android:layout_below="@id/editTextGasQty"/>
+		android:layout_below="@id/editTextGasQty"
+		android:text="Hot Water Quantity" />
 	<EditText
 		android:inputType="numberDecimal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/editTextCWQty"
-		android:layout_below="@id/editTextHWQty"/>
+		android:layout_below="@id/editTextHWQty"
+		android:text="Cold Water Quantity" />
 	<Button
 		android:text="Add"
 		android:layout_width="match_parent"

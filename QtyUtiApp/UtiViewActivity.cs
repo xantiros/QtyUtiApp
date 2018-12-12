@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Android.App;
-using Android.Content;
 using Android.OS;
 using Android.Widget;
 using QtyUtiApp.Core.Models;
@@ -19,7 +18,6 @@ namespace QtyUtiApp
             SetContentView(Resource.Layout.UtiView);
 
             
-
             ListView listView = FindViewById<ListView>(Resource.Id.listView2);
 
             List<Gas> gass = null;
